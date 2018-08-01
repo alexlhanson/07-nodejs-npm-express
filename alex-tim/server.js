@@ -27,11 +27,18 @@ app.post('/articles', (request, response) => {
 // COMMENT: Why are our files in a "public" directory now? How does ExpressJS serve files?
 // It uses the public directory as a root directory, and anything above it is not accessible to requests.  ExpressJS serves files as a request, response and callback function. It static files with the static method.
 
-// TODO: Write a new route, using an arrow function, that will handle a request and send the new.html file back to the user.
+// DONE: Write a new route, using an arrow function, that will handle a request and send the new.html file back to the user.
 // NOTE: route url does not need to match the file name
-app.get('/', (req, res) => {res.sendFile('new.html', {root: './public'})});
-// TODO: Write a new route, using an arrow function, that will handle any other routes that were not defined and deliver a 404 status message to the user. See the ExpressJS docs for a hint.
-app.get('*', (req, res) => {res.sendFile('new.html', {root: './public'})});
+app.get('/', (request, response) => {
+  response.sendFile('new.html', {root: './public'});
+});
+// DONE: Write a new route, using an arrow function, that will handle any other routes that were not defined and deliver a 404 status message to the user. See the ExpressJS docs for a hint.
+app.get('*', (request, response) => {
+  response.status(404).send(`OMG YOU BROKE THE INTERNET`);
 
-// TODO: Log to the console a message that lets you know which port your server has started on
-console.log(PORT)
+});
+
+// DONE: Log to the console a message that lets you know which port your server has started on
+app.listen(PORT, () => {
+  console.log(`server running and listening on port ${PORT}`)
+});
